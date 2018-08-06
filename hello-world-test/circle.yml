@@ -1,0 +1,52 @@
+machine:
+  environment:
+    SERVICE: app-demo-jh
+    UW_DOCKER_REGISTRY: registry.uw.systems
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - docker login -u $DOCKER_REGISTRY_USERNAME -p $DOCKER_REGISTRY_PASSWORD -e $DOCKER_EMAIL $DOCKER_REGISTRY
+
+  override:
+    # - docker build --build-arg "SSH_KEY=$(cat ~/.ssh/id_circleci_github | base64)" --build-arg SERVICE=$SERVICE --build-arg REVISION=$CIRCLE_SHA1 --tag build-$SERVICE:$CIRCLE_SHA1 .
+
+test:
+    pre:
+        - go get
+
+  override:
+    # - docker run build-$SERVICE:$CIRCLE_SHA1 go test -v -p 1 ./...
+
+deployment:
+#  production:
+#    branch: ['master']
+#    commands:
+#      - docker create --name src build-$SERVICE:$CIRCLE_SHA1 /bin/true
+#      - docker create --name dest registry.uw.systems/base_images/uw-alpine-deploy /$SERVICE
+#      - docker cp src:/$SERVICE $SERVICE
+#      - docker cp $SERVICE dest:/$SERVICE
+#      - docker cp fragments dest:/
+#      - docker data fragments dest:/
+#      - docker commit dest $UW_DOCKER_REGISTRY/$SERVICE:$CIRCLE_SHA1
+#      - docker tag -f $UW_DOCKER_REGISTRY/$SERVICE:$CIRCLE_SHA1 $UW_DOCKER_REGISTRY/$SERVICE:latest
+#      - docker push $UW_DOCKER_REGISTRY/$SERVICE
+#      - docker run -it -e KUBERNETES_TOKEN=$K8S_DEV_TOKEN quay.io/guidesmiths/kube-deploy --insecure-https --url https://elb.master.k8s.dev.uw.systems --namespace enterprise deployment/$SERVICE $SERVICE $UW_DOCKER_REGISTRY/$SERVICE:$CIRCLE_SHA1
+
+  develop:
+    # branch: ['develop']
+    # commands:
+    #   - mkdir output
+    #   - docker create --name src build-$SERVICE:$CIRCLE_SHA1 /bin/true
+    #   - docker create --name dest registry.uw.systems/base_images/uw-alpine-deploy /$SERVICE
+    #   - docker cp src:/$SERVICE ./output/$SERVICE
+    #   - docker cp src:/go/src/github.com/utilitywarehouse/unicom-exstream-adapter/swagger ./output/
+    #   - docker cp src:/go/src/github.com/utilitywarehouse/unicom-exstream-adapter/swagger-ui ./output/
+    #   - docker cp ./output/$SERVICE dest:/$SERVICE
+    #   - docker cp ./output/swagger dest:/swagger
+    #   - docker cp ./output/swagger-ui dest:/swagger-ui
+    #   - docker commit dest $UW_DOCKER_REGISTRY/$SERVICE:$CIRCLE_SHA1
+    #   - docker tag -f $UW_DOCKER_REGISTRY/$SERVICE:$CIRCLE_SHA1 $UW_DOCKER_REGISTRY/$SERVICE:latest
+    #   - docker push $UW_DOCKER_REGISTRY/$SERVICE
+    #   - docker run -it -e KUBERNETES_TOKEN=$K8S_DEV_TOKEN quay.io/guidesmiths/kube-deploy --insecure-https --url https://elb.master.k8s.dev.uw.systems --namespace enterprise-d deployment/$SERVICE $SERVICE $UW_DOCKER_REGISTRY/$SERVICE:$CIRCLE_SHA1
