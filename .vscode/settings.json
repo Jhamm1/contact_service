@@ -1,0 +1,7 @@
+{
+  "files.exclude": {
+    "_notes/": "explorerExcludedFiles",
+    "bower_components/": "explorerExcludedFiles",
+    "node_modules/": "explorerExcludedFiles"
+  }
+}
