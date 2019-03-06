@@ -43,8 +43,8 @@ exports.create = (req, res) => {
         conn.createChannel(function(err, ch) {
             var mq = 'ContactService_audit';
             ch.assertQueue(mq, { durable: false });
-            ch.sendToQueue(mq, Buffer.from(contact.toString()));
-            //console.log(" [x] Sent %s", contact.toString());
+            ch.sendToQueue(mq, Buffer.from(contact._id.toString()));
+            //console.log(" [x] Sent %s", contact._id.toString());
         });
         setTimeout(function() {
             conn.close();
