@@ -1,6 +1,8 @@
 const Contact = require('../models/contact.model.js');
 const statusUpdate = require('../Enums/enum.js');
 
+var amqp = require('amqplib/callback_api');
+
 // Create and Save a new Contact
 exports.create = (req, res) => {
     // Validate request
@@ -26,8 +28,6 @@ exports.create = (req, res) => {
 
     });
 
-
-
     // Save Contact in the database
     contact.save()
         .then(data => {
@@ -38,6 +38,19 @@ exports.create = (req, res) => {
                 message: err.message || "Some error occurred while creating the Contact."
             });
         });
+
+    amqp.connect('amqp://localhost', function(err, conn) {
+        conn.createChannel(function(err, ch) {
+            var mq = 'ContactService_audit';
+            ch.assertQueue(mq, { durable: false });
+            ch.sendToQueue(mq, Buffer.from(contact.toString()));
+            //console.log(" [x] Sent %s", contact.toString());
+        });
+        setTimeout(function() {
+            conn.close();
+        }, 500);
+    });
+
 };
 
 // Retrieve and return all contacts from the database.

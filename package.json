@@ -19,6 +19,7 @@
     "homepage": "https://github.com/Jhamm1/contact_service#readme",
     "dependencies": {
         "Express": "^3.0.1",
+        "amqplib": "^0.5.3",
         "body-parser": "^1.18.3",
         "mongoose": "^5.4.17"
     }
