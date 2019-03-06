@@ -22,7 +22,7 @@ exports.create = (req, res) => {
         number: req.body.number,
         consultation: req.body.consultation,
         service: req.body.service,
-        status: req.body.service
+        status: statusUpdate.pending
 
     });
 
