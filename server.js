@@ -1,5 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+swaggerUi = require('swagger-ui-express'),
+    swaggerDocument = require('./swagger.json');
+
+const opn = require('opn')
 
 // create express app
 const app = express();
@@ -38,6 +42,10 @@ app.all('', function(req, res, next) {
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+opn('http://localhost:5000/api-docs')
 
 // listen for requests
 app.listen(5000, () => {
