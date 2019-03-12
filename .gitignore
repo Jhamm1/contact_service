@@ -6,3 +6,5 @@ _notes/
 /node_modules/
 .env
 .gitignore
+/.vscode
+/config/
