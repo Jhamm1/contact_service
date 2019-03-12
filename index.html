@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h1></h1>
+    <!-- Learn about this code on MDN: https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_forms_through_JavaScript -->
+
+    <form id="myForm">
+        <!-- firstName -->
+        <label for="myLastName">FirstName:</label>
+        <input id="firstName" name="firstName" value="John">
+
+        <!-- lastName -->
+        <label for="myLastName">LastName:</label>
+        <input id="lastName" name="lastName" value="Brown">
+
+        <!-- message -->
+        <label for="myMessage">Message</label>
+        <input id="message" name="message" value="This is a message">
+
+        <!-- email -->
+        <label for="myemail">Email:</label>
+        <input id="email" name="email" value="JohnBrown@abc.com">
+
+        <!-- number -->
+        <label for="myNumber">Number:</label>
+        <input id="number" name="number" value="01234567890">
+
+        <!-- service -->
+        <label for="myService">Service:</label>
+        <input id="service" name="service" value="Security">
+
+        <input type="submit" value="Send Me!">
+    </form>
+
+    <script>
+        window.addEventListener("load", function() {
+            function sendData() {
+                var XHR = new XMLHttpRequest();
+
+                var FirstName = document.getElementById("firstName").value;
+                var LastName = document.getElementById("lastName").value;
+                var Message = document.getElementById("message").value;
+                var Email = document.getElementById("email").value;
+                var NumberVal = document.getElementById("number").value;
+                var Service = document.getElementById("service").value;
+
+
+                var data = {};
+                data.firstName = FirstName;
+                data.lastName = LastName;
+                data.message = Message;
+                data.email = Email;
+                data.number = NumberVal;
+                data.service = Service;
+                //data.job = "leader";
+                var json = JSON.stringify(data);
+
+                // Bind the FormData object and the form element
+                var FD = new FormData(json);
+
+
+
+                // Define what happens on successful data submission
+                XHR.addEventListener("load", function(event) {
+                    alert(event.target.responseText);
+                    console.log(XHR.response);
+                });
+
+                // Define what happens in case of error
+                XHR.addEventListener("error", function(event) {
+                    alert('Oops! Something went wrong.');
+                });
+
+
+                // Set up our request
+                XHR.open("POST", "http://localhost:5000/contacts", true);
+
+                console.log(json);
+
+                XHR.setRequestHeader("Content-type", "application/json");
+                XHR.send(json);
+
+                // The data sent is what the user provided in the form
+                //XHR.send(json);
+                //XHR.response;
+
+                // console.log(XHR.response);
+                // console.log(XHR.responseText);
+                // console.log(json);
+
+            }
+
+            // Access the form element...
+            var form = document.getElementById("myForm");
+
+
+            //var form2 = JSON.parse(txt);
+
+            // ...and take over its submit event.
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                sendData();
+            });
+        });
+    </script>
+
+</body>
+
+</html>

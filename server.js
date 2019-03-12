@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-var amqp = require('amqplib/callback_api');
 
 // create express app
 const app = express();
@@ -27,31 +26,18 @@ mongoose.connect(dbConfig.url, {
     process.exit();
 });
 
-/** 
-// Connecting to the Message Queue system
-amqp.connect(mqConfig.url, function(err, conn) {
-    conn.createChannel(function(err, ch) {
-        var q = 'hello';
-        var msg = 'Hello World!';
-
-        ch.assertQueue(q, { durable: false });
-        ch.sendToQueue(q, Buffer.from(msg));
-        console.log(" [x] Sent %s", msg);
-    });
-    setTimeout(function() {
-        conn.close();
-        process.exit(0)
-    }, 500);
-});
-
-**/
-
 // define a simple route
 app.get('/', (req, res) => {
     res.json({ "message": "Welcome to Contact service. Creating a new contact. Organise and and store cusotmer contact details." });
 });
 
 require('./app/routes/contact.routes.js')(app);
+
+app.all('', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+});
 
 // listen for requests
 app.listen(5000, () => {

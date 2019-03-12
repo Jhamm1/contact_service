@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>RabbitMQ Chat App</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" Access-Control-Allow-Origin: "*">
+
+    <style>
+        .top-margin {
+            margin-top: 48px;
+        }
+    </style>
+</head>
+
+<body class="top-margin">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-5 col-lg-offset-3">
+                <div class="chat-feed">
+                    <!-- chat feed -->
+                </div>
+
+                <form id="chatForm" method="post">
+                    <div class="form-group top-margin">
+                        <label for="firstName">First Name</label>
+                        <textarea class="form-control" id="firstName" rows="1"></textarea>
+                        <label for="lastName">Last Name</label>
+                        <textarea class="form-control" id="lastName" rows="1"></textarea>
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" rows="1"></textarea>
+                        <label for="email">Email</label>
+                        <textarea class="form-control" id="email" rows="1"></textarea>
+                        <label for="number">Number</label>
+                        <textarea class="form-control" id="number" rows="1"></textarea>
+                        <label for="service">Service</label>
+                        <textarea class="form-control" id="service" rows="1"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Chat</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js" Access-Control-Allow-Origin: "*"></script>
+
+    <script src="test.js"></script>
+</body>
+
+</html>
