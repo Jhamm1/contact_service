@@ -3,6 +3,8 @@ const statusUpdate = require('../Enums/enum.js');
 
 var amqp = require('amqplib/callback_api');
 
+var rest = require('rest-facade');
+
 // Create and Save a new Contact
 exports.create = (req, res) => {
     // Validate request
@@ -13,8 +15,6 @@ exports.create = (req, res) => {
     }
     res.status(201);
 
-
-
     // Create a Contact
     var contact = new Contact({
         firstName: req.body.firstName || "Unknown firstName",
@@ -24,7 +24,7 @@ exports.create = (req, res) => {
         number: req.body.number,
         consultation: req.body.consultation,
         service: req.body.service,
-        status: statusUpdate.pending
+        status: statusUpdate.createRequest
 
     });
 
@@ -39,6 +39,7 @@ exports.create = (req, res) => {
             });
         });
 
+    //Connect to MQ and publish msg onto the queue
     amqp.connect('amqp://localhost', function(err, conn) {
         conn.createChannel(function(err, ch) {
             var mq = 'ContactService_audit';
@@ -51,6 +52,18 @@ exports.create = (req, res) => {
         }, 500);
     });
 
+    var OutboundMsg = new rest.Client('http://localhost:3002/communications');
+    OutboundMsg
+        .create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            message: req.body.message,
+            email: req.body.email,
+            service: req.body.service
+        })
+        .then(function(user) {
+            console.log('OutboundMsg created');
+        });
 };
 
 // Retrieve and return all contacts from the database.

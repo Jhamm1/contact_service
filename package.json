@@ -26,6 +26,7 @@
         "mongoose": "^5.4.17",
         "opn": "^5.4.0",
         "request": "^2.88.0",
+        "rest-facade": "^1.10.1",
         "swagger-ui-express": "^4.0.2",
         "validator": "^10.11.0"
     }

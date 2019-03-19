@@ -2,6 +2,11 @@
   "files.exclude": {
     "_notes/": "explorerExcludedFiles",
     "bower_components/": "explorerExcludedFiles",
-    "node_modules/": "explorerExcludedFiles"
+    "node_modules/": "explorerExcludedFiles",
+    ".env": "explorerExcludedFiles",
+    ".gitignore": "explorerExcludedFiles",
+    ".vscode/": "explorerExcludedFiles",
+    "config/": "explorerExcludedFiles",
+    ".*/": "explorerExcludedFiles"
   }
 }
