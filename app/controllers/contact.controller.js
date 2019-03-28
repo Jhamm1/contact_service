@@ -39,7 +39,7 @@ exports.create = (req, res) => {
             });
         });
 
-    //Connect to MQ and publish msg onto the queue
+    //Connect to Rabbit MQ and publish msg onto the queue
     amqp.connect('amqp://localhost', function(err, conn) {
         conn.createChannel(function(err, ch) {
             var mq = 'ContactService_audit';
@@ -59,7 +59,8 @@ exports.create = (req, res) => {
             lastName: req.body.lastName,
             message: req.body.message,
             email: req.body.email,
-            service: req.body.service
+            service: req.body.service,
+            status: statusUpdate.createRequest
         })
         .then(function(user) {
             console.log('OutboundMsg created');
