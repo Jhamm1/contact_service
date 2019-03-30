@@ -52,19 +52,44 @@ exports.create = (req, res) => {
         }, 500);
     });
 
-    var OutboundMsg = new rest.Client('http://localhost:3002/communications');
-    OutboundMsg
-        .create({
+    // var OutboundMsg = new rest.Client('http://localhost:3002/communications');
+    // OutboundMsg
+    //     .create({
+    //         firstName: req.body.firstName,
+    //         lastName: req.body.lastName,
+    //         message: req.body.message,
+    //         email: req.body.email,
+    //         service: req.body.service,
+    //         status: statusUpdate.createRequest
+    //     })
+    //     .then(function(user) {
+    //         console.log('OutboundMsg created');
+    //     });
+    var request = require("request");
+
+    var options = {
+        method: 'POST',
+        url: 'http://localhost:3002/communications',
+        body: {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             message: req.body.message,
             email: req.body.email,
             service: req.body.service,
             status: statusUpdate.createRequest
-        })
-        .then(function(user) {
-            console.log('OutboundMsg created');
-        });
+        },
+        json: true
+
+    };
+
+    console.log(options);
+
+    request(options, function(error, response, body) {
+        if (error) throw new Error(error);
+
+        console.log(body);
+    });
+
 };
 
 // Retrieve and return all contacts from the database.

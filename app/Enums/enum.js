@@ -1,7 +1,7 @@
 const Statuses = {
-    createRequest: 1,
-    processingRequest: 2,
-    completedRequest: 3,
+    createRequest: "createRequest",
+    processingRequest: "processingRequest",
+    completedRequest: "completedRequest",
 }
 
 module.exports = Statuses;
