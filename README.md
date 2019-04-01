@@ -1,16 +1,17 @@
 # Contact service
 
-A full Restful CRUD API for managing contacts written in Node.js, Express and MongoDB
+A full Restful CRUD API for managing contacts written in Node.js, Express and MongoDB.
 
-## Steps to Setup
+![Outbound communications framework architecture](Micronox-ContactService.jpeg)
 
-1. Install dependencies
+## Steps to setup the service
+
+**Install dependencies**
 
 ```bash
 npm install
 ```
-
-2. Run Server
+**Run Server**
 
 ```bash
 node server.js
@@ -26,3 +27,6 @@ Here are the following API endpoints:
 3.	Retrieve a single contact with contactId: **GET** http://localhost:5000/contacts/{contactId}
 4. Update a Contact with contactId: **PUT** http://localhost:5000/contacts/{contactId}
 5. Delete a Contact with contactId: **DELETE** http://localhost:5000/contacts/{contactId}
+
+## Run unit tests
+
